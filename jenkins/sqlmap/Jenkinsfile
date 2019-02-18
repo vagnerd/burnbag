@@ -1,12 +1,20 @@
 pipeline {
-    agent {
-        docker { image 'vagnerd/sqlmap' }
-    }
+    agent none
+
     stages {
-        stage('Test') {
-            steps {
-                sh 'ls -l /sqlmap'
+        stage('Run SQLMap Pentest') {
+            when {
+                expression { params.url_hack }
             }
+            
+            agent {
+                docker { image 'vagnerd/sqlmap' }
+            }
+            
+            steps {
+                sh "python /sqlmap/sqlmap.py --batch -u ${params.url_hack}"
+            }
+            
         }
     }
 }
