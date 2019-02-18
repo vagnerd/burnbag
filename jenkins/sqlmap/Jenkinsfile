@@ -1,5 +1,12 @@
-stage 'Checkout'
- node('master') {
-  deleteDir()
-  checkout scm
- }
+pipeline {
+    agent {
+        docker { image 'vagnerd/sqlmap' }
+    }
+    stages {
+        stage('Test') {
+            steps {
+                sh '--version'
+            }
+        }
+    }
+}
