@@ -14,3 +14,5 @@ USER sqlmap
 VOLUME /data
 
 WORKDIR /sqlmap
+
+ENTRYPOINT ["python", "sqlmap.py", "--batch"]
