@@ -5,5 +5,3 @@ RUN apk update && apk add --no-cache python git \
 	&& git clone --depth=1 --branch=master https://github.com/n00py/WPForce.git /wpforce
 
 WORKDIR /wpforce
-
-ENTRYPOINT ["python", "wpforce.py"]
