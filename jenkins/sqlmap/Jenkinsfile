@@ -8,7 +8,7 @@ pipeline {
             }
             
             agent {
-                docker { image 'vagnerd/sqlmap' }
+                docker { image 'vagnerd/sqlmap:latest-jenkins' }
             }
             
             steps {
