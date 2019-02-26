@@ -12,7 +12,9 @@ ENV DEBIAN_FRONTEND noninteractive
 ### START BASE LAYER ###
 
 RUN apt-get update && apt-get install -y aria2 curl && /bin/bash -c "$(curl -sL https://git.io/vokNn)" && apt-get update
-COPY ["apt-fast.conf", "/etc/apt-fast.conf"]
+
+RUN curl https://raw.githubusercontent.com/vagnerd/burnbag/master/docker/sn1per/apt-fast.conf > /etc/apt-fast.conf
+
 RUN apt-fast install -y \
 		ruby \
 		rubygems \
