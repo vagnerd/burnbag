@@ -89,5 +89,6 @@ VOLUME /usr/share/sniper/loot
 # Wordlists volume
 VOLUME /usr/share/sniper/wordlists
 
-ADD ["docker-entrypoint.sh", "/root/"]
+RUN curl https://raw.githubusercontent.com/vagnerd/burnbag/master/docker/sn1per/docker-entrypoint.sh > /root/docker-entrypoint.sh && chmod +x /root/docker-entrypoint.sh
+
 ENTRYPOINT ["/root/docker-entrypoint.sh"]
