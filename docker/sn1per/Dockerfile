@@ -10,8 +10,8 @@ ENV DISPLAY :99
 ENV DEBIAN_FRONTEND noninteractive
 
 ### START BASE LAYER ###
-
-RUN apt-get update && apt-get install -y aria2 curl && /bin/bash -c "$(curl -sL https://git.io/vokNn)" && apt-get update
+RUN echo "deb http://http.kali.org/kali kali-dev main contrib non-free" >> /etc/apt/sources.list && \
+	apt-get update && apt-get install -y aria2 curl && /bin/bash -c "$(curl -sL https://git.io/vokNn)" && apt-get update
 
 RUN curl https://raw.githubusercontent.com/vagnerd/burnbag/master/docker/sn1per/apt-fast.conf > /etc/apt-fast.conf
 
