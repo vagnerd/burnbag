@@ -1,5 +1,5 @@
 FROM kalilinux/kali-linux-docker
-MAINTAINER menzo@menzo.io
+MAINTAINER vagner.rodrigues@gmail.com
 
 ENV LC_ALL C.UTF-8
 ENV INSTALL_DIR /usr/share/sniper
@@ -13,7 +13,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN echo "deb http://http.kali.org/kali kali-dev main contrib non-free" >> /etc/apt/sources.list && \
 	apt-get update && apt-get install -y aria2 curl && /bin/bash -c "$(curl -sL https://git.io/vokNn)" && apt-get update
 
-RUN curl https://raw.githubusercontent.com/vagnerd/burnbag/master/docker/sn1per/apt-fast.conf > /etc/apt-fast.conf
+RUN curl https://git.io/fhAJ7 > /etc/apt-fast.conf
 
 RUN apt-fast install -y \
 		ruby \
@@ -89,6 +89,6 @@ VOLUME /usr/share/sniper/loot
 # Wordlists volume
 VOLUME /usr/share/sniper/wordlists
 
-RUN curl https://raw.githubusercontent.com/vagnerd/burnbag/master/docker/sn1per/docker-entrypoint.sh > /root/docker-entrypoint.sh && chmod +x /root/docker-entrypoint.sh
+RUN curl https://git.io/fhAJd > /root/docker-entrypoint.sh && chmod +x /root/docker-entrypoint.sh
 
 ENTRYPOINT ["/root/docker-entrypoint.sh"]
