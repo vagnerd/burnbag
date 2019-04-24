@@ -1,94 +1,29 @@
 FROM kalilinux/kali-linux-docker
-MAINTAINER vagner.rodrigues@gmail.com
 
-ENV LC_ALL C.UTF-8
-ENV INSTALL_DIR /usr/share/sniper
-ENV LOOT_DIR /usr/share/sniper/loot
-ENV PLUGINS_DIR /usr/share/sniper/plugins
-ENV SNIPER_SKIP_DEPENDENCIES true
-ENV DISPLAY :99
+LABEL org.label-schema.name='Sn1per - Kali Linux' \
+    org.label-schema.description='Automated pentest framework for offensive security experts' \
+    org.label-schema.usage='https://github.com/1N3/Sn1per' \
+    org.label-schema.url='https://github.com/1N3/Sn1per' \
+    org.label-schema.vendor='https://xerosecurity.com' \
+    org.label-schema.schema-version='1.0' \
+    org.label-schema.docker.cmd.devel='docker run --rm -ti hariomv/sniper' \
+    MAINTAINER="Hariom Vashisth <hariom.devops@gmail.com>"
+
+RUN echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb-src http://http.kali.org/kali kali-rolling main contrib non-free" >> /etc/apt/sources.list
 ENV DEBIAN_FRONTEND noninteractive
 
-### START BASE LAYER ###
-RUN echo "deb http://http.kali.org/kali kali-dev main contrib non-free" >> /etc/apt/sources.list && \
-	apt-get update && apt-get install -y aria2 curl && /bin/bash -c "$(curl -sL https://git.io/vokNn)" && apt-get update
+RUN set -x \
+    && apt-get -yqq update
+#    && apt-get -yqq dist-upgrade \
+#    && apt-get clean
 
-RUN curl https://git.io/fhAJ7 > /etc/apt-fast.conf
+RUN \
+    apt-get --yes install git \
+    && mkdir -p security \
+    && cd security \
+    && git clone https://github.com/vagnerd/Sn1per.git \
+    && cd Sn1per \
+    && ./install.sh
 
-RUN apt-fast install -y \
-		ruby \
-		rubygems \
-		dos2unix \
-		python \
-		zenmap \
-		sslyze \
-		uniscan \
-		xprobe2 \
-		cutycapt \
-		unicornscan \
-		host \
-		whois \
-		iputils-ping \
-		xvfb \
-		dirb \
-		dnsrecon \
-		curl \
-		nmap \
-		php \
-		php-curl \
-		hydra \
-		iceweasel \
-		wpscan \
-		sqlmap \
-		nbtscan \
-		enum4linux \
-		cisco-torch \
-		metasploit-framework \
-		theharvester \
-		ruby-dev \
-		dnsenum \
-		libsqlite3-dev \
-		nikto \
-		smtp-user-enum \
-		whatweb \
-		dnsutils \
-		sslscan \
-		amap \
-		arachni \
-    	bsdmainutils && \
-	mv /usr/bin/python /usr/bin/python.unknown && \
-	ln -s /usr/bin/python2.7 /usr/bin/python && \
-	curl https://bootstrap.pypa.io/get-pip.py | python && \
-	gem install  \
-		mechanize \
-		bcrypt \
-		sqlite3 \
-		net-http-persistent \
-		rake \
-		ruby-nmap \
-		text-table && \
-	pip install  \
-		colorama \
-		dnspython \
-		ipaddress \
-		tldextract \
-		urllib3 && \
-	git clone https://github.com/1N3/Sn1per.git && \
-	cd Sn1per && \
-	printf 'yes\nyes\nyes\n' | /bin/bash ./install.sh && \
-	sniper update && \
-	echo Cleaning up package index && \
-		apt-get clean && \
-		rm -rf /etc/apt/apt.conf.d/30autoproxy && \
-		rm -rf /var/lib/apt/lists/* && \
-	echo "Image creation complete"
-
-# Loot volume, used for output
-VOLUME /usr/share/sniper/loot
-
-# Wordlists volume
-VOLUME /usr/share/sniper/wordlists
-
-RUN curl https://git.io/fhAJd > /root/docker-entrypoint.sh && chmod +x /root/docker-entrypoint.sh
-
-ENTRYPOINT ["/root/docker-entrypoint.sh"]
+CMD ["bash"]
