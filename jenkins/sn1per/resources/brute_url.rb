@@ -1,5 +1,7 @@
-setg THREADS XXX_THREADS_XXX
-setg RHOSTS XXX_HOST_XXX
+<ruby>
+run_single("setg THREADS #{ENV['DOCKER_MS_THREADS']}")
+run_single("setg RHOSTS #{ENV['DOCKER_URL_HACK']}")
+</ruby>
   use auxiliary/scanner/http/http_version
 run
   use auxiliary/scanner/http/dir_scanner
