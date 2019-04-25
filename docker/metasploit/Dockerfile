@@ -55,6 +55,8 @@ COPY --chown=root:metasploit --from=builder /usr/local/bundle /usr/local/bundle
 COPY --chown=root:metasploit . $APP_HOME/
 RUN cp -f $APP_HOME/docker/database.yml $APP_HOME/config/database.yml
 
+RUN git clone https://github.com/vagnerd/burnbag.git / 
+
 WORKDIR $APP_HOME
 
 # we need this entrypoint to dynamically create a user
