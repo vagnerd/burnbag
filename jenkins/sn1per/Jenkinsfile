@@ -4,19 +4,9 @@ pipeline {
     stages {
 
         stage('Git Pull Resources') {
-
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vagnerd/burnbag.git']]])
-        
-        }
-
-        stage('Set Hosts') {
-
-            when {
-                expression { params.url_hack }
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vagnerd/burnbag.git']]])
             }
-
-            sh label: '', script: 'cat jenkins/sn1per/resources/brute_url.rb'
-
         }
 
     }
