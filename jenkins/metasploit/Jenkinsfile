@@ -1,0 +1,25 @@
+pipeline {
+    agent none
+
+    stages {
+        
+        stage('Run MetaSploit Brute URL Pentest') {
+            when {
+                expression { params.DOCKER_URL_HACK }
+            }
+            
+            agent {
+                docker { 
+                    image 'vagnerd/metasploit-burnbag'
+                    args '-u root:root'
+                    
+                }
+            }
+            
+            steps {
+                sh "/usr/src/metasploit-framework/msfconsole -r /burnbag/resources/metasploit/brute_url.rb"
+            }
+            
+        }
+    }
+}
