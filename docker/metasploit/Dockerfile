@@ -1,4 +1,4 @@
-FROM metasploitframework/metasploit-framework
+FROM vagnerd/metasploit-core
 MAINTAINER Vagnerd Fernandes "vagner.rodrigues@gmail.com"
 
 RUN apk add --no-cache git
