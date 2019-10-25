@@ -1,0 +1,34 @@
+require: rubocop-performance
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+  - '*.gemspec'
+  - 'vendor/**/*'
+Lint/UriEscapeUnescape:
+  Enabled: false
+Metrics/AbcSize:
+  Max: 25
+Metrics/BlockLength:
+  Exclude:
+  - 'spec/**/*'
+Metrics/ClassLength:
+  Max: 150
+  Exclude:
+  - 'app/controllers/enumeration/cli_options.rb'
+Metrics/CyclomaticComplexity:
+  Max: 8
+Metrics/LineLength:
+  Max: 120
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+  - 'app/controllers/enumeration/cli_options.rb'
+Style/ClassVars:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/FormatStringToken:
+  Enabled: false
+Style/NumericPredicate:
+  Exclude:
+  - 'app/controllers/vuln_api.rb'
